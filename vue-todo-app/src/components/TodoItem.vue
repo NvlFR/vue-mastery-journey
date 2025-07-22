@@ -6,7 +6,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["delete-todo"]);
+const emit = defineEmits(["delete-todo", "toggle-done"]);
 // function deleteTodo() {
 //   emit("delete-todo", todo.id);
 // }
@@ -14,7 +14,9 @@ const emit = defineEmits(["delete-todo"]);
 
 <template>
   <li>
-    <span>{{ todo.text }}</span>
+    <span @click="$emit('toggle-done', todo.id)" :class="{ done: todo.done }">{{
+      todo.text
+    }}</span>
     <button @click="$emit('delete-todo', todo.id)">Hapus</button>
   </li>
 </template>
@@ -26,5 +28,12 @@ li {
 }
 button {
   margin-left: 1rem;
+}
+.done {
+  text-decoration: line-through;
+  color: #888;
+}
+span {
+  cursor: pointer;
 }
 </style>
